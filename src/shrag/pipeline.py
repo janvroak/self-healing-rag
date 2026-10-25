@@ -25,6 +25,9 @@ class RAGResult:
     llm_calls: int
     seconds: float
     trace: list[TraceEvent] = field(default_factory=list)
+    context: list[dict] = field(default_factory=list)  # chunks the answer was built from
+    critique: dict = field(default_factory=dict)  # last critic report
+    queries: list[str] = field(default_factory=list)
 
 
 class SelfHealingRAG:
@@ -81,7 +84,8 @@ class SelfHealingRAG:
         answer = text_of(self.generator.invoke(prompts.naive_rag(question, docs)))
         return RAGResult(question, answer, "answered",
                          [d.metadata.get("chunk_id", "") for d in docs], 1, 1,
-                         time.perf_counter() - start)
+                         round(time.perf_counter() - start, 1),
+                         context=[_chunk(d) for d in docs], queries=[question])
 
     @staticmethod
     def _result(question: str, state: dict, seconds: float) -> RAGResult:
@@ -94,4 +98,13 @@ class SelfHealingRAG:
             llm_calls=state.get("llm_calls", 0),
             seconds=round(seconds, 1),
             trace=state.get("trace", []),
+            context=[_chunk(d) for d in state.get("relevant_docs", [])]
+            if state.get("status") != "insufficient" else [],
+            critique=state.get("critique", {}),
+            queries=state.get("queries_tried", []),
         )
+
+
+def _chunk(doc) -> dict:
+    return {"id": doc.metadata.get("chunk_id", ""), "source": doc.metadata.get("source", ""),
+            "score": doc.metadata.get("score"), "text": doc.page_content}

@@ -166,7 +166,8 @@ class RAGNodes:
             "feedback": feedback.strip() or result.missing,
             "llm_calls": calls,
             "trace": _event("critique", summary, verdict=verdict, unsupported=unsupported,
-                            missing=result.missing, bad_citations=bad_citations),
+                            missing=result.missing, bad_citations=bad_citations,
+                            claims=[c.model_dump() for c in result.claims]),
         }
         if verdict == "re_retrieve":
             update["partial_answer"] = answer

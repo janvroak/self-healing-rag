@@ -6,6 +6,25 @@ The whole workflow is a **stateful, cyclical LangGraph state machine** with hard
 
 Runs entirely on **free models**: OpenRouter `:free` LLMs, falling back to local Ollama, plus local CPU embeddings.
 
+![Self-Healing RAG web app](docs/home.png)
+
+## Web app
+
+```bash
+uv run streamlit run app.py
+```
+
+- **Chat** with the knowledge base. Each step of the graph (retrieve → grade → generate → critique → retry) appears live while it runs.
+- Every answer has a badge (**Verified**, **Partial**, or **Not enough information**) and three tabs:
+  - **Trace:** every step, including rejected drafts.
+  - **Critic report:** each claim marked ✅ supported or ❌ unsupported, with the chunk that backs it.
+  - **Sources:** the exact chunks behind the answer, with similarity scores.
+- **Compare with plain RAG** shows a normal one-shot RAG answer next to it, so you can see the difference.
+- **Upload your own** PDF / Markdown / text files from the sidebar and ask about them. Retry limits are adjustable with sliders.
+- **How it works** page: the graph diagram plus the latest evaluation results.
+
+![How it works page](docs/how-it-works.png)
+
 ## How it works
 
 ```mermaid
@@ -125,7 +144,7 @@ src/shrag/
   vectorstore.py  loading (.md/.txt/.pdf), chunking, local embeddings, Chroma
   pipeline.py     SelfHealingRAG: ask(), stream(), baseline()
   cli.py          shrag ingest | ask | chat | graph | eval
-app.py            Streamlit UI
+app.py            Streamlit web app (chat, live trace, critic report, uploads)
 tests/            offline tests of every loop path, using scripted fake LLMs
 eval/             evaluation questions (results are written to eval/results/)
 ```

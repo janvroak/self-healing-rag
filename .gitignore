@@ -6,3 +6,4 @@ __pycache__/
 .cache/
 eval/results/
 .pytest_cache/
+data/uploads/

@@ -110,3 +110,12 @@ class VectorRetriever:
 
     def is_empty(self) -> bool:
         return not self.store.get(limit=1)["ids"]
+
+
+def knowledge_base_stats(settings: Settings) -> dict:
+    """Number of chunks and chunks per source file in the index."""
+    metadatas = open_store(settings).get(include=["metadatas"])["metadatas"]
+    per_source: dict[str, int] = {}
+    for meta in metadatas:
+        per_source[meta.get("source", "?")] = per_source.get(meta.get("source", "?"), 0) + 1
+    return {"chunks": len(metadatas), "sources": dict(sorted(per_source.items()))}
