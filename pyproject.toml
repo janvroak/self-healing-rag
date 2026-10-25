@@ -1,0 +1,38 @@
+[project]
+name = "self-healing-rag"
+version = "0.1.0"
+description = "A RAG pipeline that critiques its own answers and retries instead of hallucinating, built as a cyclical LangGraph state machine."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastembed>=0.9.1",
+    "httpx>=0.28.1",
+    "langchain-chroma>=1.1.0",
+    "langchain-core>=1.7.0",
+    "langchain-ollama>=1.1.0",
+    "langchain-openai>=1.7.2",
+    "langchain-text-splitters>=1.1.3",
+    "langgraph>=1.2.17",
+    "pypdf>=6.21.2",
+    "python-dotenv>=1.2.4",
+    "rich>=15.0.0",
+    "streamlit>=1.66.1",
+]
+
+[project.scripts]
+shrag = "shrag.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/shrag"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

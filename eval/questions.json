@@ -1,0 +1,16 @@
+[
+  {"id": "leave-carryover", "answerable": true, "question": "How many unused leave days can I carry over, and when do they expire?", "expected": ["8", "31 March"]},
+  {"id": "k2-thermal-flight", "answerable": true, "question": "How long can the Kestrel K2 fly with the thermal payload attached?", "expected": ["38"]},
+  {"id": "estonia-headcount", "answerable": true, "question": "How many people work for Veridian in Estonia?", "expected": ["71"]},
+  {"id": "work-abroad", "answerable": true, "question": "Can I work from Bali for two months? Who do I need to tell?", "expected": ["30 days", "People Operations"]},
+  {"id": "hotfix-approval", "answerable": true, "question": "Who has to sign off on an emergency firmware hotfix?", "expected": ["Ravi Deshpande"]},
+  {"id": "careplus", "answerable": true, "question": "What does Veridian Care+ cost, and how fast do Care+ customers get a support response?", "expected": ["690", "4 business hours"]},
+  {"id": "crash-coverage", "answerable": true, "question": "My drone crashed. Does the warranty cover it, and if not, what are my options?", "expected": ["Care+"]},
+  {"id": "postmortem", "answerable": true, "question": "After a SEV2 incident, how long do we have to write the post-mortem?", "expected": ["5 business days"]},
+  {"id": "k1-flight-time", "answerable": false, "question": "What was the maximum flight time of the Kestrel K1?"},
+  {"id": "cfo", "answerable": false, "question": "Who is the CFO of Veridian Dynamics?"},
+  {"id": "revenue", "answerable": false, "question": "What was Veridian Dynamics' revenue in 2025?"},
+  {"id": "rapiddock-ip", "answerable": false, "question": "What is the IP rating of the RapidDock charging station?"},
+  {"id": "k3-price", "answerable": false, "question": "How much will the Kestrel K3 cost?"},
+  {"id": "pune-sauna", "answerable": false, "question": "What are the opening hours of the sauna in the Pune office?"}
+]
